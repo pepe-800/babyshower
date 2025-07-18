@@ -6,6 +6,8 @@
     <title>Invitación Baby Shower</title>
     <!-- Google Fonts: Pacifico for decorative titles and Open Sans for readable body text -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Play/Pause icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* General Body Styles */
         body {
@@ -85,8 +87,7 @@
 
         .welcome-modal button:active {
             transform: translateY(0); /* Press effect */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n        }
 
         /* Main Invitation Content Styles */
         .invitation-container {
@@ -171,8 +172,7 @@
 
         .image-gallery img:hover {
             transform: scale(1.15) rotate(5deg); /* Slightly larger and rotated on hover */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-        }
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);\n        }
 
         .rsvp-section {
             margin-top: 2.5rem;
@@ -206,6 +206,44 @@
             color: #777;
             padding-top: 1.5rem;
             border-top: 1px solid #eee; /* Light solid line */
+        }
+
+        /* Music Controls */
+        .music-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100; /* Ensure it's above content */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            opacity: 0; /* Hidden by default */
+            visibility: hidden;
+            transform: translateX(20px);
+        }
+
+        .invitation-container.show .music-controls {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            transition: opacity 1s ease 1s, visibility 1s ease 1s, transform 1s ease 1s; /* Delay appearance */
+        }
+
+        .music-controls:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: scale(1.05);
+        }
+
+        .music-controls i {
+            font-size: 1.5em;
+            color: #6A5ACD; /* Icon color */
         }
 
         /* Confetti Animation */
@@ -262,6 +300,15 @@
                 padding: 0.7rem 1.5rem;
                 font-size: 0.9em;
             }
+            .music-controls {
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                right: 15px;
+            }
+            .music-controls i {
+                font-size: 1.2em;
+            }
         }
 
         @media (max-width: 480px) {
@@ -296,8 +343,15 @@
             }
             .whatsapp-link {
                 display: block; /* Stack buttons vertically */
-                width: fit-content;
-                margin: 0.5rem auto;
+                width: fit-content;\n                margin: 0.5rem auto;\n            }
+            .music-controls {
+                width: 35px;
+                height: 35px;
+                top: 10px;
+                right: 10px;
+            }
+            .music-controls i {
+                font-size: 1em;
             }
         }
     </style>
@@ -315,6 +369,11 @@
 
     <!-- Main Invitation Content -->
     <div class="invitation-container" id="invitationContent" aria-hidden="true">
+        <!-- Music Play/Pause Control -->
+        <div class="music-controls" id="musicControls">
+            <i class="fas fa-volume-up" id="musicIcon"></i>
+        </div>
+
         <h1>¡Baby Shower!</h1>
         <h2>De parte de <span class="highlight">Pepe y Sindy</span></h2>
 
@@ -350,7 +409,7 @@
         </footer>
     </div>
 
-    <!-- Audio Element (hidden by default) -->
+    <!-- Audio Element -->
     <!-- Preload="auto" helps in loading the audio early. Loop="true" plays it continuously. -->
     <audio id="bgAudio" src="https://cdn.pixabay.com/download/audio/2022/03/16/audio_bf0969a360.mp3?filename=summer-pop-11122.mp3" loop preload="auto"></audio>
 
@@ -363,6 +422,8 @@
         const openInvitationBtn = document.getElementById('openInvitationBtn');
         const invitationContent = document.getElementById('invitationContent');
         const bgAudio = document.getElementById('bgAudio');
+        const musicControls = document.getElementById('musicControls');
+        const musicIcon = document.getElementById('musicIcon');
         const confettiCanvas = document.getElementById('confettiCanvas');
         const ctx = confettiCanvas.getContext('2d');
 
@@ -384,12 +445,24 @@
             // Using a Promise to handle play() which returns a Promise for better error handling
             bgAudio.play().catch(error => {
                 console.warn("Audio playback prevented by browser:", error);
-                // Inform the user or provide a play button if autoplay is blocked
-                // For example, you could show a small "Play Music" icon
+                // If autoplay is blocked, the user can use the play/pause button
             });
 
             // Start the confetti animation
             initConfetti();
+        });
+
+        // --- Music Control Event Listener ---
+        musicControls.addEventListener('click', () => {
+            if (bgAudio.paused) {
+                bgAudio.play();
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-volume-up');
+            } else {
+                bgAudio.pause();
+                musicIcon.classList.remove('fa-volume-up');
+                musicIcon.classList.add('fa-volume-mute');
+            }
         });
 
         // --- Confetti Functions (using Canvas for better performance and control) ---
@@ -410,8 +483,7 @@
         /**
          * Generates a random integer within a specified range.
          * @param {number} min - The minimum value (inclusive).
-         * @param {number} max - The maximum value (inclusive).
-         * @returns {number} A random integer.
+         * @param {number} max - The maximum value (inclusive).\n         * @returns {number} A random integer.
          */
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -488,9 +560,7 @@
         // This ensures the DOM is fully loaded before trying to access elements.
         document.addEventListener('DOMContentLoaded', () => {
             // Optional: You could add a slight delay to modal display for a smoother load.
-            // setTimeout(() => { welcomeModal.style.opacity = 1; }, 100);
-        });
-
+            // setTimeout(() => { welcomeModal.style.opacity = 1; }, 100);\n        });
     </script>
 </body>
 </html>
