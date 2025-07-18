@@ -1,111 +1,159 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Invitación Baby Shower</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background: linear-gradient(to bottom right, #cce7ff, #ffffff);
-      color: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 1rem;
-    }
-    .card {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 100%;
-    }
-    h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: 2.5rem;
-      color: #2a75bb;
-      margin-bottom: 0.5rem;
-    }
-    h2 {
-      font-size: 1.4rem;
-      color: #444;
-      margin-top: 0;
-    }
-    .date-place {
-      margin: 1rem 0;
-      font-size: 1.1rem;
-    }
-    .highlight {
-      font-weight: bold;
-      color: #2a75bb;
-    }
-    .quote {
-      font-style: italic;
-      margin-top: 1rem;
-      color: #666;
-    }
-    .theme {
-      margin: 1.5rem 0;
-    }
-    .img-container {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .img-container img {
-      width: 100px;
-      height: auto;
-    }
-    .rsvp {
-      margin-top: 1rem;
-      font-size: 1rem;
-    }
-    .rsvp a {
-      color: #2a75bb;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #aaa;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Invitación Baby Shower</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(to bottom right, #cce7ff, #ffffff);
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: #fff;
+    flex-direction: column;
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+  }
+  .modal button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    background-color: #2a75bb;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .modal button:hover {
+    background-color: #195085;
+  }
+  .content {
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  .content.show {
+    opacity: 1;
+  }
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    color: #2a75bb;
+    margin-bottom: 0.2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-top: 0;
+  }
+  .date-place {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+  }
+  .highlight {
+    font-weight: bold;
+    color: #2a75bb;
+  }
+  .quote {
+    font-style: italic;
+    margin-top: 1rem;
+    color: #666;
+  }
+  .theme {
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+  }
+  .img-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .img-container img {
+    width: 100px;
+    height: auto;
+  }
+  .rsvp {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+  }
+  .rsvp a {
+    color: #2a75bb;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .footer {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+</style>
 </head>
 <body>
-  <div class="card">
-    <h1>¡Baby Shower!</h1>
-    <h2>Jose Lira y Sindy Lopez<br>esperan con amor a <span class="highlight">Dante o Taylor</span></h2>
-    
-    <div class="date-place">
-      📅 <span class="highlight">7 de diciembre 2025</span><br/>
-      🕒 <span class="highlight">2:00 PM</span><br/>
-      📍 <span class="highlight">Salón Eventos Gold Eventos</span>
-    </div>
 
-    <div class="quote">"Un mini yo en camino"</div>
+<div class="modal" id="welcomeModal">
+  <div>¡Bienvenido!</div>
+  <button id="openInvitationBtn">Abrir Invitación</button>
+</div>
 
-    <div class="theme">🎨 Temática: Ositos 🧸, Ponys 🦄 y tonos azules 💙</div>
-
-    <div class="img-container">
-      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Osito">
-      <img src="https://cdn-icons-png.flaticon.com/512/3039/3039444.png" alt="Pony">
-    </div>
-
-    <div class="rsvp">
-      📲 Confirmar asistencia por WhatsApp:<br/>
-      <a href="https://wa.me/528129407181">8129407181</a> o <a href="https://wa.me/528111661315">8111661315</a>
-    </div>
-
-    <div class="footer">¡Te esperamos con mucha alegría! 🎉</div>
+<div class="content" id="invitationContent" aria-hidden="true">
+  <h1>¡Baby Shower!</h1>
+  <h2>Jose Lira y Sindy Lopez<br>esperan con amor a <span class="highlight">Dante o Taylor</span></h2>
+  <div class="date-place">
+    📅 <span class="highlight">7 de diciembre 2025</span><br />
+    🕒 <span class="highlight">2:00 PM</span><br />
+    📍 <span class="highlight">Salón Eventos Gold Eventos</span>
   </div>
+  <div class="quote">"Un mini yo en camino"</div>
+  <div class="theme">🎨 Temática: Ositos 🧸, Ponys 🦄 y tonos azules 💙</div>
+  <div class="img-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Osito" />
+    <img src="https://cdn-icons-png.flaticon.com/512/3039/3039444.png" alt="Pony" />
+  </div>
+  <div class="rsvp">
+    📲 Confirmar asistencia por WhatsApp:<br />
+    <a href="https://wa.me/528129407181" target="_blank">8129407181</a> o
+    <a href="https://wa.me/528111661315" target="_blank">8111661315</a>
+  </div>
+  <div class="footer">¡Te esperamos con mucha alegría! 🎉</div>
+</div>
+
+<audio id="bgAudio" src="https://cdn.pixabay.com/download/audio/2022/03/16/audio_bf0969a360.mp3?filename=summer-pop-11122.mp3"></audio>
+
+<script>
+  const modal = document.getElementById('welcomeModal');
+  const openBtn = document.getElementById('openInvitationBtn');
+  const content = document.getElementById('invitationContent');
+  const audio = document.getElementById('bgAudio');
+
+  openBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    content.classList.add('show');
+    content.setAttribute('aria-hidden', 'false');
+    audio.play();
+  });
+</script>
+
 </body>
 </html>
