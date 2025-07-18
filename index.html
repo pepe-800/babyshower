@@ -1,159 +1,353 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Invitación Baby Shower</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet" />
-<style>
-  body {
-    margin: 0;
-    font-family: 'Open Sans', sans-serif;
-    background: linear-gradient(to bottom right, #cce7ff, #ffffff);
-    color: #333;
-    height: 100vh;
-    overflow: hidden;
-  }
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    color: #fff;
-    flex-direction: column;
-    font-family: 'Pacifico', cursive;
-    font-size: 2rem;
-  }
-  .modal button {
-    margin-top: 20px;
-    padding: 12px 30px;
-    font-size: 1.2rem;
-    background-color: #2a75bb;
-    border: none;
-    border-radius: 30px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .modal button:hover {
-    background-color: #195085;
-  }
-  .content {
-    max-width: 600px;
-    margin: auto;
-    padding: 2rem;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 1.5s ease;
-  }
-  .content.show {
-    opacity: 1;
-  }
-  h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 3rem;
-    color: #2a75bb;
-    margin-bottom: 0.2rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-    color: #444;
-    margin-top: 0;
-  }
-  .date-place {
-    margin: 1rem 0;
-    font-size: 1.2rem;
-  }
-  .highlight {
-    font-weight: bold;
-    color: #2a75bb;
-  }
-  .quote {
-    font-style: italic;
-    margin-top: 1rem;
-    color: #666;
-  }
-  .theme {
-    margin: 1.5rem 0;
-    font-size: 1.1rem;
-  }
-  .img-container {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .img-container img {
-    width: 100px;
-    height: auto;
-  }
-  .rsvp {
-    margin-top: 1rem;
-    font-size: 1.1rem;
-  }
-  .rsvp a {
-    color: #2a75bb;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  .footer {
-    margin-top: 2rem;
-    font-size: 0.9rem;
-    color: #aaa;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Shower Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right bottom, #F9EBEA, #D6EAF8); /* Soft pastel background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Animation for container fade in */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header Section */
+        header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5em;
+            color: #FF69B4; /* Pink */
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+            animation: bounceIn 1.5s ease-out;
+        }
+
+        header h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2em;
+            color: #87CEEB; /* Light Blue */
+            margin-top: 0;
+            margin-bottom: 30px;
+            animation: bounceIn 1.7s ease-out;
+        }
+
+        /* Animation for header text */
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            60% { opacity: 1; transform: scale(1.05); }
+            80% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        /* Image Section */
+        .baby-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #FFDAB9; /* Peach */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 30px auto;
+            display: block;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .baby-image:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        /* Details Section */
+        .details p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .details p strong {
+            color: #6A5ACD; /* Slate Blue */
+            font-weight: 600;
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+
+        .rsvp-section p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .rsvp-button {
+            background-color: #98FB98; /* Pale Green */
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .rsvp-button:hover {
+            background-color: #7CFC00; /* Lawn Green */
+            transform: translateY(-3px);
+        }
+
+        .rsvp-button:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        /* Confetti Animation */
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--confetti-color);
+            border-radius: 50%;
+            opacity: 0;
+            animation: fall var(--fall-duration) linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotateZ(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(calc(100vh + 100px)) rotateZ(720deg); opacity: 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            header h1 {
+                font-size: 2.8em;
+            }
+
+            header h2 {
+                font-size: 1.8em;
+            }
+
+            .baby-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .details p, .rsvp-section p {
+                font-size: 1em;
+            }
+
+            .rsvp-button {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            header h2 {
+                font-size: 1.5em;
+            }
+
+            .baby-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .details p, .rsvp-section p {
+                font-size: 0.95em;
+            }
+
+            .rsvp-button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>You're Invited!</h1>
+            <h2>to a Baby Shower for [Parent(s) Name(s)]</h2>
+        </header>
 
-<div class="modal" id="welcomeModal">
-  <div>¡Bienvenido!</div>
-  <button id="openInvitationBtn">Abrir Invitación</button>
-</div>
+        <!-- Placeholder for baby image - users can upload their own -->
+        <img src="https://placehold.co/180x180/FFDAB9/FFDAB9?text=Baby" alt="Baby Image" class="baby-image" id="babyImage">
+        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
 
-<div class="content" id="invitationContent" aria-hidden="true">
-  <h1>¡Baby Shower!</h1>
-  <h2>Jose Lira y Sindy Lopez<br>esperan con amor a <span class="highlight">Dante o Taylor</span></h2>
-  <div class="date-place">
-    📅 <span class="highlight">7 de diciembre 2025</span><br />
-    🕒 <span class="highlight">2:00 PM</span><br />
-    📍 <span class="highlight">Salón Eventos Gold Eventos</span>
-  </div>
-  <div class="quote">"Un mini yo en camino"</div>
-  <div class="theme">🎨 Temática: Ositos 🧸, Ponys 🦄 y tonos azules 💙</div>
-  <div class="img-container">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Osito" />
-    <img src="https://cdn-icons-png.flaticon.com/512/3039/3039444.png" alt="Pony" />
-  </div>
-  <div class="rsvp">
-    📲 Confirmar asistencia por WhatsApp:<br />
-    <a href="https://wa.me/528129407181" target="_blank">8129407181</a> o
-    <a href="https://wa.me/528111661315" target="_blank">8111661315</a>
-  </div>
-  <div class="footer">¡Te esperamos con mucha alegría! 🎉</div>
-</div>
+        <section class="details">
+            <p>Join us in celebrating the upcoming arrival of [Baby's Name (Optional)]!</p>
+            <p><strong>Date:</strong> [Date of Shower]</p>
+            <p><strong>Time:</strong> [Time of Shower]</p>
+            <p><strong>Location:</strong> [Venue Name or Address]</p>
+            <p><strong>Registry:</strong> [Link to Registry (Optional)]</p>
+        </section>
 
-<audio id="bgAudio" src="https://cdn.pixabay.com/download/audio/2022/03/16/audio_bf0969a360.mp3?filename=summer-pop-11122.mp3"></audio>
+        <section class="rsvp-section">
+            <p>Kindly RSVP by [RSVP Date] so we can finalize the arrangements.</p>
+            <button class="rsvp-button" onclick="handleRsvpClick()">
+                RSVP Now!
+            </button>
+        </section>
 
-<script>
-  const modal = document.getElementById('welcomeModal');
-  const openBtn = document.getElementById('openInvitationBtn');
-  const content = document.getElementById('invitationContent');
-  const audio = document.getElementById('bgAudio');
+        <footer>
+            <p>We can't wait to share this joyous occasion with you!</p>
+            <p>Hosted by: [Host(s) Name(s)]</p>
+        </footer>
+    </div>
 
-  openBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-    content.classList.add('show');
-    content.setAttribute('aria-hidden', 'false');
-    audio.play();
-  });
-</script>
-<script src="script.js"></script>
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <script>
+        // --- DOM Elements ---
+        const babyImage = document.getElementById('babyImage');
+        const imageUpload = document.getElementById('imageUpload');
+        const confettiContainer = document.getElementById('confettiContainer');
+
+        // --- Event Listeners ---
+
+        // Allows users to click on the baby image to upload their own
+        babyImage.addEventListener('click', () => {
+            imageUpload.click(); // Trigger the hidden file input
+        });
+
+        // Handles image file selection
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    babyImage.src = e.target.result; // Set the uploaded image as the source
+                };
+                reader.readAsDataURL(file); // Read the file as a data URL
+            }
+        });
+
+        // --- Functions ---
+
+        /**
+         * Handles the RSVP button click.
+         * In a real application, this would redirect to an RSVP form or send an email.
+         */
+        function handleRsvpClick() {
+            // Replace with your actual RSVP link or logic
+            alert('Thank you for your interest! In a real app, this would take you to an RSVP form.');
+            // Example: window.location.href = 'your-rsvp-form-link.html';
+        }
+
+        /**
+         * Generates a random integer within a specified range.
+         * @param {number} min - The minimum value (inclusive).
+         * @param {number} max - The maximum value (inclusive).
+         * @returns {number} A random integer.
+         */
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        /**
+         * Generates a random color for confetti.
+         * @returns {string} A hex color string.
+         */
+        function getRandomConfettiColor() {
+            const colors = ['#FFD700', '#FF69B4', '#87CEEB', '#98FB98', '#FFB6C1', '#BA55D3', '#FF4500']; // Gold, Pink, Light Blue, Pale Green, Light Pink, Medium Orchid, Orange Red
+            return colors[getRandomInt(0, colors.length - 1)];
+        }
+
+        /**
+         * Creates and animates individual confetti particles.
+         */
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = `${getRandomInt(0, 100)}vw`; // Random horizontal position
+            confetti.style.setProperty('--confetti-color', getRandomConfettiColor());
+            confetti.style.setProperty('--fall-duration', `${getRandomInt(5, 15)}s`); // Random fall duration
+            confettiContainer.appendChild(confetti);
+
+            // Remove confetti after it falls off screen to prevent DOM clutter
+            confetti.addEventListener('animationend', () => {
+                confetti.remove();
+            });
+        }
+
+        // --- Initialization ---
+
+        // Generate continuous confetti for a festive feel
+        setInterval(createConfetti, 200); // Create a new confetti particle every 200ms
+
+        // You can pre-fill the invitation details here if you want to make it dynamic
+        document.addEventListener('DOMContentLoaded', () => {
+            // Example of how to programmatically update content:
+            // document.querySelector('header h2').textContent = 'to a Baby Shower for Jane & John Doe';
+            // document.querySelector('.details p:nth-child(2)').textContent = 'Date: August 15, 2025';
+            // document.querySelector('.details p:nth-child(3)').textContent = 'Time: 2:00 PM - 4:00 PM';
+            // document.querySelector('.details p:nth-child(4)').textContent = 'Location: 123 Celebration Lane, Party Town, USA';
+            // document.querySelector('.rsvp-section p').textContent = 'Kindly RSVP by August 1, 2025 so we can finalize the arrangements.';
+        });
+
+    </script>
 </body>
 </html>
