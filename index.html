@@ -3,355 +3,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Baby Shower</title>
-    <!-- Google Fonts: Pacifico for decorative titles and Open Sans for readable body text -->
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Play/Pause icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Invitación Baby Shower | Pepe y Sindy</title>
+    <meta name="description" content="Invitación digital para el baby shower de Pepe y Sindy">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        /* General Body Styles */
-        body {
-            margin: 0;
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(to bottom right, #f0f8ff, #e0f2f7); /* Soft baby blue gradient for a gentle feel */
-            color: #333;
-            height: 100vh; /* Full viewport height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; /* Prevent scrolling, especially important for the modal */
-            position: relative; /* Needed for absolute positioning of confetti */
+        :root {
+            --primary: #FF6B9E; /* Rosa bebé */
+            --secondary: #5D9CEC; /* Azul bebé */
+            --accent: #FFD166; /* Amarillo pastel */
+            --dark: #4A4A4A;
+            --light: #F8F9FA;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
-        /* Welcome Modal Styles */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #f8fbff 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Welcome Modal */
         .welcome-modal {
-            position: fixed; /* Covers the entire screen */
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85); /* Darker, slightly opaque overlay */
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(93, 156, 236, 0.95), rgba(255, 107, 158, 0.95));
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 10000; /* Ensures it's on top of everything */
-            color: #fff;
-            font-family: 'Pacifico', cursive;
-            font-size: 2.5rem; /* Large, friendly text */
+            z-index: 1000;
+            color: white;
             text-align: center;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.6s ease-out, visibility 0.6s ease-out; /* Smooth transition for hiding */
+            padding: 2rem;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-
+        
         .welcome-modal.hidden {
             opacity: 0;
             visibility: hidden;
-            pointer-events: none; /* Prevents interaction once hidden */
+            pointer-events: none;
         }
-
+        
         .modal-content {
-            padding: 2rem;
-            animation: fadeInScale 1s ease-out; /* Animation for the modal content */
+            max-width: 600px;
+            animation: fadeInUp 1s both;
         }
-
+        
         .welcome-modal h2 {
-            font-size: 1.8em; /* Slightly smaller than main welcome text */
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             margin-bottom: 1.5rem;
-            color: #FFDAB9; /* Soft peach accent */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
-
-        .welcome-modal button {
-            margin-top: 2rem;
+        
+        .welcome-modal p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+        
+        .open-btn {
             padding: 1rem 2.5rem;
-            font-size: 1.4rem;
-            background-color: #87CEEB; /* Light blue button */
+            font-size: 1.2rem;
+            background: white;
+            color: var(--primary);
             border: none;
-            border-radius: 50px; /* Pill-shaped button */
-            color: white;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); /* Subtle shadow for depth */
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            outline: none; /* Remove outline on focus */
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 auto;
         }
-
-        .welcome-modal button:hover {
-            background-color: #6A5ACD; /* Deeper slate blue on hover */
-            transform: translateY(-3px); /* Lift effect */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35); /* Enhanced shadow on hover */
+        
+        .open-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
-
-        .welcome-modal button:active {
-            transform: translateY(0); /* Press effect */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);\n        }
-
-        /* Main Invitation Content Styles */
+        
+        .open-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Main Invitation */
         .invitation-container {
-            max-width: 768px; /* Standard max-width for content */
-            width: 90%; /* Responsive width */
-            background-color: #fff;
-            border-radius: 20px; /* Rounded corners for a friendly look */
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18); /* More prominent shadow */
-            padding: 40px;
-            text-align: center;
+            max-width: 800px;
+            width: 95%;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 3rem;
             opacity: 0;
-            visibility: hidden;
-            transform: translateY(30px); /* Starts slightly off-screen */
-            transition: opacity 1s ease-out, transform 1s ease-out, visibility 1s ease-out; /* Smooth entrance */
-            position: relative; /* For confetti positioning inside */
-            overflow: hidden; /* Ensures confetti stays within bounds */
+            transform: translateY(30px);
+            transition: all 1s ease;
+            position: relative;
+            overflow: hidden;
         }
-
+        
         .invitation-container.show {
             opacity: 1;
-            visibility: visible;
-            transform: translateY(0); /* Moves into view */
+            transform: translateY(0);
         }
-
+        
+        .invitation-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
         h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 4.5em; /* Large, inviting main title */
-            color: #FF69B4; /* Lovely pink for celebration */
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            color: var(--primary);
             margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); /* Soft text shadow */
+            line-height: 1.2;
         }
-
+        
         h2 {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1.8em;
-            color: #4682B4; /* Steel blue for secondary title */
-            margin-top: 0;
-            line-height: 1.4;
-            font-weight: 400; /* Lighter weight for readability */
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
-
+        
         .highlight {
-            font-weight: 700; /* Bold highlight for important names/dates */
-            color: #6A5ACD; /* Slate blue highlight */
+            color: var(--primary);
+            font-weight: 700;
         }
-
-        .details-section {
+        
+        .details-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 2rem;
             margin: 2rem 0;
-            line-height: 1.8; /* Improved line spacing for readability */
-            font-size: 1.15em;
-            color: #555;
+            text-align: center;
+            box-shadow: var(--shadow);
         }
-
-        .details-section p {
-            margin: 0.8rem 0; /* Spacing between paragraphs */
+        
+        .detail-item {
+            margin-bottom: 1.5rem;
         }
-
+        
+        .detail-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-text {
+            font-size: 1.1rem;
+        }
+        
         .theme-section {
             margin: 2rem 0;
-            font-size: 1.1em;
-            color: #666;
-            font-style: italic; /* Italic for thematic text */
+            text-align: center;
         }
-
-        .image-gallery {
+        
+        .theme-badge {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(255, 107, 158, 0.3);
+        }
+        
+        .gallery {
             display: flex;
             justify-content: center;
-            gap: 2rem; /* Increased gap for better spacing */
+            gap: 1.5rem;
             margin: 2.5rem 0;
-            flex-wrap: wrap; /* Allows images to wrap on smaller screens */
+            flex-wrap: wrap;
         }
-
-        .image-gallery img {
+        
+        .gallery-item {
             width: 100px;
             height: 100px;
-            object-fit: cover; /* Ensures images cover their area without distortion */
-            border-radius: 50%; /* Perfect circles */
-            border: 5px solid #FFDAB9; /* Peach border for images */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Consistent shadow */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
         }
-
-        .image-gallery img:hover {
-            transform: scale(1.15) rotate(5deg); /* Slightly larger and rotated on hover */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);\n        }
-
+        
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.05);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         .rsvp-section {
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px dashed #ddd; /* Dashed line separator */
-            font-size: 1.1em;
-            color: #555;
+            text-align: center;
+            margin: 2.5rem 0;
         }
-
-        .whatsapp-link {
-            display: inline-block; /* Allows side-by-side buttons */
-            margin: 1rem 1rem; /* Spacing between buttons */
-            padding: 0.8rem 1.8rem;
-            background-color: #25D366; /* WhatsApp brand green */
+        
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #25D366;
             color: white;
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
             text-decoration: none;
-            border-radius: 30px;
             font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin: 0.5rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
-
-        .whatsapp-link:hover {
-            background-color: #1DA851; /* Darker green on hover */
-            transform: translateY(-2px); /* Slight lift */
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
         }
-
+        
+        .whatsapp-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
         footer {
+            text-align: center;
             margin-top: 3rem;
-            font-size: 0.95em;
-            color: #777;
-            padding-top: 1.5rem;
-            border-top: 1px solid #eee; /* Light solid line */
+            color: #888;
+            font-size: 0.9rem;
         }
-
+        
         /* Music Controls */
         .music-controls {
             position: absolute;
             top: 20px;
             right: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
+            background: white;
             width: 50px;
             height: 50px;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 100; /* Ensure it's above content */
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            opacity: 0; /* Hidden by default */
-            visibility: hidden;
+            box-shadow: var(--shadow);
+            z-index: 10;
+            transition: var(--transition);
+            opacity: 0;
             transform: translateX(20px);
         }
-
+        
         .invitation-container.show .music-controls {
             opacity: 1;
-            visibility: visible;
             transform: translateX(0);
-            transition: opacity 1s ease 1s, visibility 1s ease 1s, transform 1s ease 1s; /* Delay appearance */
+            transition: opacity 0.5s ease 1s, transform 0.5s ease 1s;
         }
-
+        
         .music-controls:hover {
-            background-color: rgba(255, 255, 255, 1);
-            transform: scale(1.05);
+            transform: scale(1.1) translateX(0);
         }
-
+        
         .music-controls i {
-            font-size: 1.5em;
-            color: #6A5ACD; /* Icon color */
+            font-size: 1.3rem;
+            color: var(--primary);
         }
-
-        /* Confetti Animation */
-        .confetti-canvas {
-            position: fixed; /* Covers the entire viewport */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Allows clicks to pass through */
-            z-index: 9999; /* Below modal, above invitation */
+        
+        /* Floating Elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
         }
-
-        /* Keyframe Animations */
-        @keyframes fadeInScale {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
-
-        /* Responsive Design */
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .welcome-modal {
-                font-size: 2rem;
-            }
-            .welcome-modal h2 {
-                font-size: 1.5em;
-            }
-            .welcome-modal button {
-                padding: 0.8rem 2rem;
-                font-size: 1.2rem;
-            }
             .invitation-container {
-                padding: 30px;
-                width: 95%;
+                padding: 2rem;
             }
-            h1 {
-                font-size: 3.5em;
+            
+            .details-card {
+                padding: 1.5rem;
             }
-            h2 {
-                font-size: 1.4em;
-            }
-            .details-section, .theme-section, .rsvp-section {
-                font-size: 1em;
-            }
-            .image-gallery {
-                gap: 1.5rem;
-            }
-            .image-gallery img {
+            
+            .gallery-item {
                 width: 80px;
                 height: 80px;
             }
-            .whatsapp-link {
-                margin: 0.8rem 0.8rem;
-                padding: 0.7rem 1.5rem;
-                font-size: 0.9em;
-            }
-            .music-controls {
-                width: 40px;
-                height: 40px;
-                top: 15px;
-                right: 15px;
-            }
-            .music-controls i {
-                font-size: 1.2em;
+            
+            .whatsapp-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
             }
         }
-
+        
         @media (max-width: 480px) {
-            .welcome-modal {
-                font-size: 1.8rem;
-            }
-            .welcome-modal h2 {
-                font-size: 1.2em;
-            }
-            .welcome-modal button {
-                padding: 0.7rem 1.8rem;
-                font-size: 1.1rem;
-            }
             .invitation-container {
-                padding: 20px;
+                padding: 1.5rem;
             }
-            h1 {
-                font-size: 2.8em;
-            }
-            h2 {
-                font-size: 1.2em;
-            }
-            .details-section, .theme-section, .rsvp-section {
-                font-size: 0.9em;
-            }
-            .image-gallery {
-                gap: 1rem;
-            }
-            .image-gallery img {
+            
+            .gallery-item {
                 width: 70px;
                 height: 70px;
             }
-            .whatsapp-link {
-                display: block; /* Stack buttons vertically */
-                width: fit-content;\n                margin: 0.5rem auto;\n            }
-            .music-controls {
-                width: 35px;
-                height: 35px;
-                top: 10px;
-                right: 10px;
-            }
-            .music-controls i {
-                font-size: 1em;
+            
+            .whatsapp-btn {
+                display: block;
+                margin: 0.8rem auto;
+                width: fit-content;
             }
         }
     </style>
@@ -360,99 +353,131 @@
 
     <!-- Welcome Modal -->
     <div class="welcome-modal" id="welcomeModal">
-        <div class="modal-content">
-            <h2>¡Una dulce espera nos llena de alegría!</h2>
-            <p>Descubre los detalles de nuestro Baby Shower.</p>
-            <button id="openInvitationBtn">Abrir Invitación</button>
+        <div class="modal-content animate__animated animate__fadeIn">
+            <h2 class="floating">¡Estás Invitado!</h2>
+            <p>Pepe y Sindy celebran la llegada de su bebé</p>
+            <button class="open-btn" id="openInvitationBtn">
+                <i class="fas fa-gift"></i> Abrir Invitación
+            </button>
         </div>
     </div>
 
-    <!-- Main Invitation Content -->
-    <div class="invitation-container" id="invitationContent" aria-hidden="true">
-        <!-- Music Play/Pause Control -->
+    <!-- Main Invitation -->
+    <div class="invitation-container" id="invitationContent">
+        <!-- Music Controls -->
         <div class="music-controls" id="musicControls">
             <i class="fas fa-volume-up" id="musicIcon"></i>
         </div>
 
-        <h1>¡Baby Shower!</h1>
-        <h2>De parte de <span class="highlight">Pepe y Sindy</span></h2>
-
-        <section class="details-section">
-            <p>¡Esperamos con muchísimo amor la llegada de nuestro bebé!</p>
-            <p>Te invitamos a compartir este día tan especial con nosotros.</p>
-            <p><strong>Día:</strong> <span class="highlight">2 de diciembre</span></p>
-            <p><strong>Hora:</strong> <span class="highlight">2 de la tarde</span></p>
-            <p><strong>Lugar:</strong> <span class="highlight">Gold Eventos</span></p>
-        </section>
-
-        <section class="theme-section">
-            <p>¡La temática será sorpresa, pero habrá mucha ternura y alegría!</p>
-        </section>
-
-        <div class="image-gallery">
-            <!-- Placeholder images for baby shower theme -->
-            <img src="https://placehold.co/100x100/FFC0CB/FFF?text=🍼" alt="Biberón" />
-            <img src="https://placehold.co/100x100/ADD8E6/FFF?text=👶" alt="Bebé" />
-            <img src="https://placehold.co/100x100/90EE90/FFF?text=👣" alt="Huellas de bebé" />
+        <header>
+            <h1 class="animate__animated animate__fadeIn">Baby Shower</h1>
+            <h2 class="animate__animated animate__fadeIn animate__delay-1s">Pepe y Sindy esperan con amor a<br><span class="highlight">Dante o Taylor</span></h2>
+        </header>
+        
+        <div class="details-card animate__animated animate__fadeIn animate__delay-1s">
+            <div class="detail-item">
+                <i class="far fa-calendar-alt"></i>
+                <div class="detail-text">
+                    <span class="highlight">7 de Diciembre 2025</span>
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <i class="far fa-clock"></i>
+                <div class="detail-text">
+                    <span class="highlight">2:00 PM</span>
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="detail-text">
+                    <span class="highlight">Salón Eventos Gold Eventos</span>
+                </div>
+            </div>
         </div>
-
-        <section class="rsvp-section">
-            <p>¡Tu presencia es el mejor regalo!</p>
-            <p>Por favor, confirma tu asistencia:</p>
-            <!-- WhatsApp links for RSVP -->
-            <a href="https://wa.me/528129407181" target="_blank" class="whatsapp-link">WhatsApp de Pepe</a>
-            <a href="https://wa.me/528111661315" target="_blank" class="whatsapp-link">WhatsApp de Sindy</a>
-        </section>
-
-        <footer>
-            <p>¡Gracias por ser parte de nuestra felicidad!</p>
+        
+        <div class="theme-section animate__animated animate__fadeIn animate__delay-2s">
+            <p>"Un pequeño milagro está en camino"</p>
+            <div class="theme-badge floating">
+                Temática: Ositos � | Ponys 🦄 | Azul 💙
+            </div>
+        </div>
+        
+        <div class="gallery animate__animated animate__fadeIn animate__delay-2s">
+            <div class="gallery-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Osito">
+            </div>
+            <div class="gallery-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/3039/3039444.png" alt="Pony">
+            </div>
+            <div class="gallery-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/3023/3023981.png" alt="Bebé">
+            </div>
+        </div>
+        
+        <div class="rsvp-section animate__animated animate__fadeIn animate__delay-3s">
+            <h3>Confirma tu asistencia</h3>
+            <p>¡Haznos saber si vendrás!</p>
+            
+            <a href="https://wa.me/528129407181" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Contactar a Pepe
+            </a>
+            
+            <a href="https://wa.me/528111661315" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Contactar a Sindy
+            </a>
+        </div>
+        
+        <footer class="animate__animated animate__fadeIn animate__delay-3s">
+            <p>¡Esperamos compartir este momento especial contigo! 🎉</p>
+            <p>Con cariño, Pepe y Sindy</p>
         </footer>
     </div>
 
     <!-- Audio Element -->
-    <!-- Preload="auto" helps in loading the audio early. Loop="true" plays it continuously. -->
-    <audio id="bgAudio" src="https://cdn.pixabay.com/download/audio/2022/03/16/audio_bf0969a360.mp3?filename=summer-pop-11122.mp3" loop preload="auto"></audio>
+    <audio id="bgAudio" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
-    <!-- Confetti Canvas -->
-    <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+    <!-- Confetti JS -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <script>
-        // --- DOM Elements ---
+        // DOM Elements
         const welcomeModal = document.getElementById('welcomeModal');
-        const openInvitationBtn = document.getElementById('openInvitationBtn');
-        const invitationContent = document.getElementById('invitationContent');
+        const openBtn = document.getElementById('openInvitationBtn');
+        const invitation = document.getElementById('invitationContent');
         const bgAudio = document.getElementById('bgAudio');
         const musicControls = document.getElementById('musicControls');
         const musicIcon = document.getElementById('musicIcon');
-        const confettiCanvas = document.getElementById('confettiCanvas');
-        const ctx = confettiCanvas.getContext('2d');
-
-        // --- Confetti Variables ---
-        let confetti = [];
-        const confettiColors = ['#FFD700', '#FF69B4', '#87CEEB', '#98FB98', '#FFB6C1', '#BA55D3', '#FF4500']; // Gold, Pink, Light Blue, Pale Green, Light Pink, Medium Orchid, Orange Red
-        const maxConfetti = 150; // Maximum number of confetti particles
-
-        // --- Event Listener for "Abrir Invitación" button ---
-        openInvitationBtn.addEventListener('click', () => {
-            // Hide the welcome modal with a smooth transition
+        
+        // Open Invitation
+        openBtn.addEventListener('click', () => {
             welcomeModal.classList.add('hidden');
-
-            // Show the main invitation content with a smooth transition
-            invitationContent.classList.add('show');
-            invitationContent.setAttribute('aria-hidden', 'false');
-
-            // Attempt to play background music
-            // Using a Promise to handle play() which returns a Promise for better error handling
-            bgAudio.play().catch(error => {
-                console.warn("Audio playback prevented by browser:", error);
-                // If autoplay is blocked, the user can use the play/pause button
+            invitation.classList.add('show');
+            
+            // Play music with user interaction
+            bgAudio.volume = 0.3;
+            const playPromise = bgAudio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Autoplay prevented, showing controls");
+                    musicControls.style.display = 'flex';
+                });
+            }
+            
+            // Confetti celebration
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#FF6B9E', '#5D9CEC', '#FFD166', '#A0E7E5', '#B5EAD7']
             });
-
-            // Start the confetti animation
-            initConfetti();
         });
-
-        // --- Music Control Event Listener ---
+        
+        // Music Controls
         musicControls.addEventListener('click', () => {
             if (bgAudio.paused) {
                 bgAudio.play();
@@ -464,103 +489,12 @@
                 musicIcon.classList.add('fa-volume-mute');
             }
         });
-
-        // --- Confetti Functions (using Canvas for better performance and control) ---
-
-        /**
-         * Resizes the confetti canvas to match the window dimensions.
-         * This is crucial for responsive confetti.
-         */
-        function resizeConfettiCanvas() {
-            confettiCanvas.width = window.innerWidth;
-            confettiCanvas.height = window.innerHeight;
+        
+        // Detect mobile devices for audio autoplay policy
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobile) {
+            musicControls.style.display = 'flex';
         }
-
-        // Call resize on load and window resize
-        window.addEventListener('resize', resizeConfettiCanvas);
-        resizeConfettiCanvas(); // Initial call
-
-        /**
-         * Generates a random integer within a specified range.
-         * @param {number} min - The minimum value (inclusive).
-         * @param {number} max - The maximum value (inclusive).\n         * @returns {number} A random integer.
-         */
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        /**
-         * Represents a single confetti particle.
-         * @class
-         */
-        class Confetto {
-            constructor() {
-                this.x = Math.random() * confettiCanvas.width; // Random X position
-                this.y = Math.random() * -confettiCanvas.height; // Start above the canvas
-                this.size = getRandomInt(4, 8); // Random size for variation
-                this.color = confettiColors[getRandomInt(0, confettiColors.length - 1)]; // Random color
-                this.speed = getRandomInt(2, 5); // Random falling speed
-                this.rotation = Math.random() * 360; // Initial rotation
-                this.rotationSpeed = Math.random() * 10 - 5; // Random rotation speed (-5 to 5)
-            }
-
-            /**
-             * Updates the position and rotation of the confetti particle.
-             */
-            update() {
-                this.y += this.speed;
-                this.rotation += this.rotationSpeed;
-
-                // Reset confetti if it falls off the screen
-                if (this.y > confettiCanvas.height) {
-                    this.y = Math.random() * -confettiCanvas.height;
-                    this.x = Math.random() * confettiCanvas.width;
-                }
-            }
-
-            /**
-             * Draws the confetti particle on the canvas.
-             */
-            draw() {
-                ctx.save(); // Save the current canvas state
-                ctx.translate(this.x + this.size / 2, this.y + this.size / 2); // Move origin to center for rotation
-                ctx.rotate(this.rotation * Math.PI / 180); // Rotate in radians
-                ctx.fillStyle = this.color;
-                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size); // Draw rectangle from new origin
-                ctx.restore(); // Restore the canvas state
-            }
-        }
-
-        /**
-         * Initializes confetti particles.
-         */
-        function initConfetti() {
-            confetti = []; // Clear existing confetti
-            for (let i = 0; i < maxConfetti; i++) {
-                confetti.push(new Confetto());
-            }
-            animateConfetti(); // Start the animation loop
-        }
-
-        /**
-         * Animation loop for confetti.
-         */
-        function animateConfetti() {
-            ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); // Clear the canvas
-
-            confetti.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            requestAnimationFrame(animateConfetti); // Request next frame
-        }
-
-        // --- DOMContentLoaded Event ---
-        // This ensures the DOM is fully loaded before trying to access elements.
-        document.addEventListener('DOMContentLoaded', () => {
-            // Optional: You could add a slight delay to modal display for a smoother load.
-            // setTimeout(() => { welcomeModal.style.opacity = 1; }, 100);\n        });
     </script>
 </body>
 </html>
