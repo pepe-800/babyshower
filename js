@@ -1,3 +1,8 @@
+const modal = document.getElementById('welcomeModal');
+const openBtn = document.getElementById('openInvitationBtn');
+const content = document.getElementById('invitationContent');
+const audio = document.getElementById('bgAudio');
+
 openBtn.addEventListener('click', () => {
   modal.style.display = 'none';
   content.classList.add('show');
@@ -5,12 +10,9 @@ openBtn.addEventListener('click', () => {
 
   audio.play()
     .then(() => {
-      // Audio se está reproduciendo sin problema
       console.log("Audio iniciado");
     })
-    .catch((error) => {
-      // Aquí el navegador bloqueó el audio, intenta desbloquearlo con user interaction extra
-      console.log("Error al reproducir audio:", error);
-      alert("Para escuchar la música, por favor permite la reproducción o presiona el botón de reproducir en tu navegador.");
+    .catch(() => {
+      audio.style.display = 'block'; // Muestra controles para que el usuario reproduzca manualmente si falla autoplay
     });
 });
