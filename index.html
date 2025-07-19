@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower | Pepe y Sindy</title>
-    <meta name="description" content="Invitación digital para el baby shower de Pepe y Sindy">
+    <meta name="description" content="Celebra con nosotros la llegada de Dante o Taylor">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -34,6 +34,7 @@
             color: var(--dark);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
         
         /* Welcome Modal */
@@ -264,41 +265,6 @@
             font-size: 0.9rem;
         }
         
-        /* Music Controls */
-        .music-controls {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 10;
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateX(20px);
-        }
-        
-        .invitation-container.show .music-controls {
-            opacity: 1;
-            transform: translateX(0);
-            transition: opacity 0.5s ease 1s, transform 0.5s ease 1s;
-        }
-        
-        .music-controls:hover {
-            transform: scale(1.1) translateX(0);
-        }
-        
-        .music-controls i {
-            font-size: 1.3rem;
-            color: var(--primary);
-        }
-        
         /* Floating Elements */
         .floating {
             animation: floating 3s ease-in-out infinite;
@@ -308,6 +274,45 @@
             0% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
+        }
+        
+        /* Music Controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 1s ease 1s;
+        }
+        
+        .invitation-container.show ~ .music-controls {
+            opacity: 1;
+        }
+        
+        .music-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .volume-control {
+            width: 80px;
+            accent-color: var(--primary);
         }
         
         /* Responsive */
@@ -329,6 +334,11 @@
                 padding: 0.8rem 1.5rem;
                 font-size: 0.9rem;
             }
+            
+            .music-controls {
+                bottom: 15px;
+                right: 15px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -345,6 +355,16 @@
                 display: block;
                 margin: 0.8rem auto;
                 width: fit-content;
+            }
+            
+            .music-controls {
+                padding: 8px 12px;
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .volume-control {
+                width: 60px;
             }
         }
     </style>
@@ -364,11 +384,6 @@
 
     <!-- Main Invitation -->
     <div class="invitation-container" id="invitationContent">
-        <!-- Music Controls -->
-        <div class="music-controls" id="musicControls">
-            <i class="fas fa-volume-up" id="musicIcon"></i>
-        </div>
-
         <header>
             <h1 class="animate__animated animate__fadeIn">Baby Shower</h1>
             <h2 class="animate__animated animate__fadeIn animate__delay-1s">Pepe y Sindy esperan con amor a<br><span class="highlight">Dante o Taylor</span></h2>
@@ -400,7 +415,7 @@
         <div class="theme-section animate__animated animate__fadeIn animate__delay-2s">
             <p>"Un pequeño milagro está en camino"</p>
             <div class="theme-badge floating">
-                Temática: Ositos � | Ponys 🦄 | Azul 💙
+                Temática: Ositos 🧸 | Ponys 🦄 | Azul 💙
             </div>
         </div>
         
@@ -435,9 +450,17 @@
         </footer>
     </div>
 
+    <!-- Music Controls -->
+    <div class="music-controls">
+        <button class="music-btn" id="playBtn"><i class="fas fa-play"></i></button>
+        <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-control" id="volumeControl">
+    </div>
+
     <!-- Audio Element -->
-    <audio id="bgAudio" loop preload="auto">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <audio id="bgMusic" loop>
+        <!-- Reemplaza con tu archivo MP3 -->
+        <source src="musica.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
     </audio>
 
     <!-- Confetti JS -->
@@ -448,23 +471,30 @@
         const welcomeModal = document.getElementById('welcomeModal');
         const openBtn = document.getElementById('openInvitationBtn');
         const invitation = document.getElementById('invitationContent');
-        const bgAudio = document.getElementById('bgAudio');
-        const musicControls = document.getElementById('musicControls');
-        const musicIcon = document.getElementById('musicIcon');
+        const bgMusic = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playBtn');
+        const volumeControl = document.getElementById('volumeControl');
+        
+        // Configuración inicial
+        bgMusic.volume = 0.5;
+        let isPlaying = false;
         
         // Open Invitation
         openBtn.addEventListener('click', () => {
             welcomeModal.classList.add('hidden');
             invitation.classList.add('show');
             
-            // Play music with user interaction
-            bgAudio.volume = 0.3;
-            const playPromise = bgAudio.play();
+            // Intenta reproducir automáticamente después de interacción del usuario
+            const playPromise = bgMusic.play();
             
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Autoplay prevented, showing controls");
-                    musicControls.style.display = 'flex';
+                playPromise.then(() => {
+                    isPlaying = true;
+                    updatePlayButton();
+                }).catch(error => {
+                    console.log("Autoplay bloqueado:", error);
+                    // Muestra controles más prominentes si el autoplay falla
+                    document.querySelector('.music-controls').style.opacity = '1';
                 });
             }
             
@@ -477,24 +507,41 @@
             });
         });
         
-        // Music Controls
-        musicControls.addEventListener('click', () => {
-            if (bgAudio.paused) {
-                bgAudio.play();
-                musicIcon.classList.remove('fa-volume-mute');
-                musicIcon.classList.add('fa-volume-up');
+        // Play/Pause Control
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
             } else {
-                bgAudio.pause();
-                musicIcon.classList.remove('fa-volume-up');
-                musicIcon.classList.add('fa-volume-mute');
+                bgMusic.play();
+            }
+            isPlaying = !isPlaying;
+            updatePlayButton();
+        });
+        
+        // Volume Control
+        volumeControl.addEventListener('input', () => {
+            bgMusic.volume = volumeControl.value;
+        });
+        
+        // Update play button icon
+        function updatePlayButton() {
+            playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+        }
+        
+        // Detectar si la música se pausa por otras razones
+        bgMusic.addEventListener('pause', () => {
+            if (isPlaying) {
+                isPlaying = false;
+                updatePlayButton();
             }
         });
         
-        // Detect mobile devices for audio autoplay policy
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        if (isMobile) {
-            musicControls.style.display = 'flex';
-        }
+        bgMusic.addEventListener('play', () => {
+            if (!isPlaying) {
+                isPlaying = true;
+                updatePlayButton();
+            }
+        });
     </script>
 </body>
 </html>
